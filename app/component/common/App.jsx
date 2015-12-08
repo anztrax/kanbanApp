@@ -1,26 +1,30 @@
 import React,{Component} from "react";
-import Notes from "./Notes.jsx";
 import AltContainer from "alt-container";
-import Lanes from "../common/Lane/Lane.jsx";
-import NoteActions from "../../actions/NoteActions";
-import NoteStore from "../../stores/NoteStore";
+import Lanes from "../common/Lane/Lanes.jsx";
+import LaneActions from "../../actions/LaneActions";
+import LaneStore from "../../stores/LaneStore";
 
+import {DragAndDropContext} from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
+
+@DragAndDropContext(HTML5Backend)
 class App extends Component{
   constructor(props) {
     super(props);
 
     //this.state =  NoteStore.getState();
-    this.addNote = this.addNote.bind(this);
-    this.editNote = this.editNote.bind(this);
-    this.deleteNote = this.deleteNote.bind(this);
+    //this.addNote = this.addNote.bind(this);
+    //this.editNote = this.editNote.bind(this);
+    //this.deleteNote = this.deleteNote.bind(this);
+    this.addItem = this.addItem.bind(this);
     this.storeChanged = this.storeChanged.bind(this);
   }
   componentDidMount(){
-    NoteStore.listen(this.storeChanged);
+    LaneStore.listen(this.storeChanged);
   }
 
   componentWillUnmount(){
-    NoteStore.unlisten(this.storeChanged);
+    LaneStore.unlisten(this.storeChanged);
   }
 
   storeChanged(state){
@@ -28,33 +32,23 @@ class App extends Component{
   }
 
   render(){
-    //const notes = this.state.notes;
-
     return (
       <div>
-        <button className="add-note" onClick={this.addNote}>+</button>
-        <AltContainer stores={[NoteStore]}
+        <button className="add-note" onClick={this.addItem}>+</button>
+        <AltContainer stores={[LaneStore]}
                       inject={{
-                        items : ()=> NoteStore.getState().notes
+                        items : ()=> LaneStore.getState().lanes || []
                       }}>
-          <Notes onEdit={this.editNote}
-                 onDelete={this.deleteNote} />
+          <Lanes />
         </AltContainer>
       </div>
     )
   }
 
-  addNote(){
-    console.log("testing !");
-    NoteActions.create({task : "New Task"});
-  }
-
-  editNote(id,task){
-    NoteActions.update({id,task});
-  }
-
-  deleteNote(id){
-    NoteActions.delete(id);
+  addItem(){
+    LaneActions.create({
+      name : "New Lane"
+    });
   }
 }
 

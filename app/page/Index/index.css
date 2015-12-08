@@ -1,7 +1,47 @@
-body{
-    background-color:black;
-    color:white;
-    font-family:sans-serif;
+body {
+    background: cornsilk;
+
+    font-family: sans-serif;
+}
+
+.lane {
+    display: inline-block;
+
+    margin: 1em;
+
+    background-color: #efefef;
+    border: 1px solid #ccc;
+    border-radius: 0.5em;
+
+    min-width: 10em;
+    vertical-align: top;
+}
+
+.lane-header {
+    overflow: auto;
+
+    padding: 1em;
+
+    color: #efefef;
+    background-color: #333;
+
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+}
+
+.lane-name {
+    float: left;
+}
+
+.lane-add-note {
+    float: right;
+
+    margin-left: 0.5em;
+}
+
+.add-lane, .lane-add-note button {
+    background-color: #fdfdfd;
+    border: 1px solid #ccc;
 }
 
 .notes{
@@ -20,6 +60,11 @@ body{
     box-shadow: 0 0 0.3em 0.03em rgba(0, 0, 0, 0.3);
 }
 
+.note .value {
+    /* force to use inline-block so that it gets minimum height */
+    display: inline-block;
+}
+
 .note:hover {
     box-shadow: 0 0 0.3em 0.03em rgba(0, 0, 0, 0.7);
 
@@ -33,7 +78,6 @@ body{
 
 .note .delete {
     float: right;
-
     padding: 0;
 
     background-color: #fdfdfd;

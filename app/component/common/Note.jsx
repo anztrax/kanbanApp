@@ -37,6 +37,7 @@ class Note extends React.Component{
   }
 
   renderDelete(){
+    console.log("render delete there");
     const onDelete = this.props.onDelete;
     return (
       <button className="delete" onClick={onDelete}>x</button>
